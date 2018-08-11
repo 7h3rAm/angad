@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Angad: v0.1</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="{{datadir}}/bootstrap.min.css">
+    <link rel="stylesheet" href="{{datadir}}/bootstrap-theme.min.css">
+  </head>
+  <body>
+    <div class="container">
+      <br/>
+      <table class="table table-striped">
+        <tr>
+          <td colspan="3" class="text-center"><h3>Angad (v0.1): <a href="https://www.virustotal.com/en/file/{{sha256}}/analysis/" target="_blank">{{sha256}}</a></h3></td>
+        </tr>
+        <tr>
+          <td><p class="lead text-warning">ByteView: Entropy</td>
+          <td><p>This image is created from all bytes of input file, creating a bit vector from those bytes and converting it to a Hilbert Curve. The color scheme for this image higlights entropy, with dark regions referring to low entropy content of file and vice versa.</p></td>
+          <td><img class="img-rounded" alt="" src="{{reportdir}}/{{sha256}}.square.entropy.png" style="width:128px;height:128px;" /></td>
+        </tr>
+
+        <tr>
+          <td><p class="lead text-warning">ByteView: Hilbert</td>
+          <td><p>This image is created from all bytes of input file, creating a bit vector from those bytes and converting it to a Hilbert Curve. The color scheme for this image higlights individual bytes, with each byte represented with a unique color.</p></td>
+          <td><img class="img-rounded" alt="" src="{{reportdir}}/{{sha256}}.square.hilbert.png" style="width:128px;height:128px;" /></td>
+        </tr>
+        <tr>
+          <td><p class="lead text-warning">ByteView: Gradient</td>
+          <td><p>This image is created from all bytes of input file, creating a bit vector from those bytes and converting it to a Hilbert Curve. The color scheme for this image higlights individual bytes, with each byte represented with on greyscale.</p></td>
+          <td><img class="img-rounded" alt="" src="{{reportdir}}/{{sha256}}.square.gradient.png" style="width:128px;height:128px;" /></td>
+        </tr>
+        <tr>
+          <td><p class="lead text-warning">ByteView: Entropy/Hilbert/Gradient</td>
+          <td><p>This image is created from all bytes of input file, creating a bit vector from those bytes, converting it to a Hilbert Curve. It is an animation created by combining the three Hilbert Curve representations we saw above. It highlights overlapping changes in entropy and byteviews.</p></td>
+          <td><img class="img-rounded" alt="" src="{{reportdir}}/{{sha256}}.square.gif" style="width:128px;height:128px;" /></td>
+        </tr>
+        <tr>
+          <td><p class="lead text-info">ByteView: SlidingWindow/Entropy</td>
+          <td><p>This image is created from all bytes of input file, using a sliding window, creating a bit vector from those bytes and converting it to a Hilbert Curve. The color scheme for this image higlights entropy, with dark regions referring to low entropy content of file and vice versa.</p></td>
+          <td><img class="img-rounded" alt="" src="{{reportdir}}/{{sha256}}.square.entropy.gif" style="width:128px;height:128px;" /></td>
+        </tr>
+        <tr>
+          <td><p class="lead text-info">ByteView: SlidingWindow/Hilbert</td>
+          <td><p>This image is created from all bytes of input file, using a sliding window, creating a bit vector from those bytes and converting it to a Hilbert Curve. The color scheme for this image higlights entropy, with dark regions referring to low entropy content of file and vice versa.</p></td>
+          <td><img class="img-rounded" alt="" src="{{reportdir}}/{{sha256}}.square.hilbert.gif" style="width:128px;height:128px;" /></td>
+        </tr>
+        <tr>
+          <td><p class="lead text-info">ByteView: SlidingWindow/Gradient</td>
+          <td><p>This image is created from all bytes of input file, using a sliding window, creating a bit vector from those bytes and converting it to a Hilbert Curve. The color scheme for this image higlights entropy, with dark regions referring to low entropy content of file and vice versa.</p></td>
+          <td><img class="img-rounded" alt="" src="{{reportdir}}/{{sha256}}.square.gradient.gif" style="width:128px;height:128px;" /></td>
+        </tr>
+
+        <tr>
+          <td><p class="lead text-success">IATView: IAT</td>
+          <td><p>This image is created by extracting the IAT from input file, creating a bit vector from these APIs and converting it to a Hilbert Curve. The vector is of size 32x32, ie. 1024 cells, each representing a unique API. Thus this Hilbert Curve can be used as a fingerprint for the input file.</p></td>
+          <td><img class="img-rounded" alt="" src="{{reportdir}}/{{sha256}}.iv.png" style="width:128px;height:128px;" /></td>
+        </tr>
+
+        <tr>
+          <td><p class="lead text-success">IATView: SlidingWindow/IAT</td>
+          <td><p>This image is created by extracting the IAT from input file, using a sliding window, creating a bit vector from these APIs and converting it to a Hilbert Curve. The vector is of size 32x32, ie. 1024 cells, each representing a unique API. Thus this Hilbert Curve can be used as a fingerprint for the input file.</p></td>
+          <td><img class="img-rounded" alt="" src="{{reportdir}}/{{sha256}}.iv.gif" style="width:128px;height:128px;" /></td>
+        </tr>
+
+        <tr>
+          <td><p class="lead text-primary">BehaviorView: API</td>
+          <td><p>This image is created by extracting APIs from behavior report for input file, creating a bit vector from these APIs and converting it to a Hilbert Curve. The vector is of size 32x32, ie. 1024 cells, each representing a unique API. Thus this Hilbert Curve can be used as a fingerprint for the input file.</p></td>
+          <td><img class="img-rounded" alt="" src="{{reportdir}}/{{sha256}}.bv.png" style="width:128px;height:128px;" /></td>
+        </tr>
+
+        <tr>
+          <td><p class="lead text-primary">BehaviorView: SlidingWindow/API</td>
+          <td><p>This image is created by extracting APIs from behavior report for input file, using a sliding window, creating a bit vector from these APIs and converting it to a Hilbert Curve. The vector is of size 32x32, ie. 1024 cells, each representing a unique API. Thus this Hilbert Curve can be used as a fingerprint for the input file.</p></td>
+          <td><img class="img-rounded" alt="" src="{{reportdir}}/{{sha256}}.bv.gif" style="width:128px;height:128px;" /></td>
+        </tr>
+
+      </table>
+    </div>
+    <script src="{{datadir}}/bootstrap.min.js"></script>
+  </body>
+</html>

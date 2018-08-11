@@ -1,0 +1,84 @@
+
+execution: (41, 128, 185), # 2980B9 blue
+gui:       (241, 196, 15), # F1C40F yellow
+file:      (95,158,160),   # cadet blue <- (46, 204, 113), # 2ECC71 bright green
+time:      (72,61,139),    # dark slate blue <- (52, 152, 219), # 3498DB blue
+memory:    (243, 156, 18), # F39C12 orange
+string:    (231, 76, 60),  # E74C3C red
+network:   (30,144,255),   # dodger blue <- (59, 216, 214), # 3BD8D6 green-blue
+crypto:    (142, 68, 173), # 8E44AD purple
+other:     (39, 174, 96),  # 27AE60 green
+device:    (189,183,107),  # dark khakhi <- (250, 206, 32), # FACE20 yellow
+system:    (255,20,147),   # deep pink <- (192, 57, 43),  # C0392B dark red
+registry:  (26, 188, 156), # 1ABC9C light green
+
+---
+
+visuals:
+  v1:
+    still:
+      file:
+        hc: byte/entropy (scurve)
+      behavior:
+        hc: basevector+api (apiscout)
+    animated:
+      file:
+        n = 256 bytes
+        hc: byte/entropy (scurve)
+      behavior:
+        n = 10 sec
+        hc: basevector+api (apiscout)
+  v2:
+    still:
+      instructions:
+        hc: basevector+instr (apiscout)
+      iat:
+        hc: basevector+api (apiscout)
+    animated:
+      instructions:
+        n = 10 (group of n instructions)
+        hc: basevector+instr (apiscout)
+      iat:
+        n = 1 byte (diff between addresses)
+        hc: basevector+api (apiscout)
+
+---
+
+http://byte-atlas.blogspot.com/2017/04/apiscout.html:
+  API information is probably the single most useful feature for orientation in unknown binary code and a prime resource for recovery of meaning
+
+---
+
+get samples from vt:
+  http://0.0.0.0:8000/v1/virustotal/download/local/b581b95467965c31d5ba47bd56bc5c9037daf7d5ba7a41fb229516e627672d04
+  cat sha256.1206.all | cut -d, -f2 | xargs -I % sh -c 'curl -s "http://0.0.0.0:8000/v1/virustotal/download/local/%"'
+
+get reports from vt:
+  http://0.0.0.0:8000/v1/virustotal/lookup/b581b95467965c31d5ba47bd56bc5c9037daf7d5ba7a41fb229516e627672d04
+  cat sha256.1206.all | cut -d, -f2 | xargs -I % sh -c 'curl -s "http://0.0.0.0:8000/v1/virustotal/lookup/%" >vtreports/%.json'
+
+extract apis from behavior reports:
+  cat vtreports/0a45ee3c3d12af3571d80bd4cd60f37801b416044e411786aa5ab343836702e1.json | jq '.[]["behavior"]["behavior"]["processes"][]["calls"][] | .timestamp + "," + .api' | tr -d '"' | sed 's/A$//g;s/ExA$//g;s/Ex$//g;s/ExW$//g;s/W$//g' | sort -u | sort -n
+  for i in $(ls vtreports/); do cat vtreports/$i | jq '.[]["behavior"]["behavior"]["processes"][]["calls"][] | .timestamp + "," + .api' | tr -d '"' | sed 's/A$//g;s/ExA$//g;s/Ex$//g;s/ExW$//g;s/W$//g' | sort -u | sort -n >"vttsapis/${i/.json/.api}"; done
+
+create apivector:
+  cat malfamgrp/apt33/0f80b73706df263d337c4da52aad67c3699d1deea00aafe78e604d61a54c649d.api | cut -d, -f2 | sort -u | xargs -I % grep "\!%;" winapi1024v1.txt
+
+---
+
+./binvis /bin/ls -t square
+  type: "unrolled", "square"
+  color: "class", "hilbert", "entropy", "gradient"
+  map: "hcurve", "hilbert", "zigzag", "zorder", "natural", "gray"
+
+create gif from png images:
+  https://github.com/kohler/gifsicle/issues/12
+    convert -delay 3 *.png gif:- | gifsicle --delay=10 --loop >bin.gif
+    convert -delay 3 *.png gif:- | gifsicle --delay=50 --loop --optimize=2 >bin.gif
+    convert -delay 3 *.png gif:- | gifsicle --delay=50 --loop --optimize=2 --colors=256 --multifile - >bin.gif
+
+list gif info, alongwith total count of frames in gif:
+  gifsicle bin.gif -I
+
+extract individual frames from gif:
+  gifsicle bin.gif '#0' > firstframe.gif
