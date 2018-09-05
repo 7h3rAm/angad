@@ -1,10 +1,13 @@
 # -*- coding: utf-8 -*-
 
+from difflib import SequenceMatcher
 import fnmatch
 import base64
 import codecs
 import errno
 import json
+import time
+import uuid
 import os
 
 def chunkify(inlist, blocksize):
@@ -14,7 +17,7 @@ def filename(filepath):
   return filepath.split("/")[-1]
 
 def file_open(filename):
-  if filename and filename != "":
+  if filename and filename != "" and is_file(filename):
     with codecs.open(filename, mode="r", encoding="utf-8") as fo:
       return fo.read()
 
@@ -31,6 +34,10 @@ def file_save(filename, data, mode="w"):
 def file_json_open(filename):
   if filename and filename != "":
     return dict(json.loads(file_open(filename)))
+
+def file_json_string(filename):
+  if filename and filename != "":
+    return json.dumps(file_open(filename))
 
 def file_json_save(filename, data):
   if filename and filename != "":
@@ -107,3 +114,18 @@ def file_to_base64(filename):
   if is_file(filename):
     with open(filename) as fp:
       return "data:image/png;base64,%s" % (base64.b64encode(fp.read()))
+
+def get_epoch():
+  return int(time.time())
+
+def format_epoch(epoch, formatstr="%d/%b/%Y %H:%M:%S %Z"):
+  return time.strftime(formatstr, time.localtime(epoch))
+
+def similar(a, b):
+  if a and b:
+    return SequenceMatcher(None, a, b).ratio()
+  else:
+    return 0
+
+def get_unique_string():
+  return uuid.uuid4().hex.upper()
