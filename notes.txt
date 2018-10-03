@@ -82,3 +82,13 @@ list gif info, alongwith total count of frames in gif:
 
 extract individual frames from gif:
   gifsicle bin.gif '#0' > firstframe.gif
+
+---
+
+include family name cli param and add to db
+generate cluster html reports similar to group html report
+include additional metadata in cluster html report (av, cluster, family)
+
+include api params
+include timing of api calls: fourier transforms, etc
+

@@ -29,7 +29,7 @@ config = {
   "misc": {
     "database": "angad.sqlite",
     "saveimages": False,
-    "clusterthreshold": 0.5,
+    "clusterthreshold": 0.9,
     "vectors": [
       "A8gAgAFAIA3gA7IA4EAACA7CQA4QA8QABA3EA6FAEA5CA3IA69BAEAABAABA10",
       "AAgAAgAAwAgAFQIAQMwysA5JA3gEQAgACA3BgCQLAAQACFCgIAIAELJBIA5QBL}AEAiA3GAEQA58EgIASwA6BABAABAgA6QAKIA",
